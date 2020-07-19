@@ -18,7 +18,7 @@ def get_data():
 				},
 				{
 					"type": "doctype",
-					"name": "Patient Appointment",
+					"name": "Client Appointment CT",
 					"description": _("Client Appointment")
 				},
 				{
@@ -54,7 +54,7 @@ def get_data():
 				},
 				{
 					"type": "doctype",
-					"name": "Healthcare Settings",
+					"name": "Clinic Settings",
 					"description": _("Clinic Settings")
 				},
 				{
@@ -125,7 +125,7 @@ def get_data():
 					"type": "report",
 					"is_query_report": True,
 					"name": "Client Treatment History",
-					"doctype": "Patient Appointment"
+					"doctype": "Client Appointment CT"
 				},
 				{
 					"type": "report",
@@ -137,7 +137,7 @@ def get_data():
 					"type": "report",
 					"is_query_report": True,
 					"name": "Appointment Analytics",
-					"doctype": "Patient Appointment"
+					"doctype": "Client Appointment CT"
 				}
 
 			]

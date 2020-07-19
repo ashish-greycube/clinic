@@ -1,5 +1,5 @@
 
-frappe.views.calendar["Patient Appointment"] = {
+frappe.views.calendar["Client Appointment CT"] = {
 	field_map: {
 		"start": "appointment_date",
 		"end": "appointment_datetime",
@@ -8,7 +8,7 @@ frappe.views.calendar["Patient Appointment"] = {
 		"allDay": "allDay"
 	},
 	gantt: true,
-	get_events_method: "erpnext.healthcare.doctype.patient_appointment.patient_appointment.get_events",
+	get_events_method: "erpnext.healthcare.doctype.client_appointment_ct.client_appointment_ct.get_events",
 	filters: [
 		{
 			'fieldtype': 'Link',

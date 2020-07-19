@@ -1,7 +1,7 @@
 // Copyright (c) 2017, Frappe Technologies Pvt. Ltd. and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Healthcare Settings', {
+frappe.ui.form.on('Clinic Settings', {
 	setup: function(frm) {
 		frm.set_query('account', 'receivable_account', function(doc, cdt, cdn) {
 			var d  = locals[cdt][cdn];

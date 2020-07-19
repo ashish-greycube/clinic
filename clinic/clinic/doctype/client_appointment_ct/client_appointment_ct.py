@@ -13,7 +13,7 @@ from frappe.core.doctype.sms_settings.sms_settings import send_sms
 from erpnext.healthcare.doctype.healthcare_settings.healthcare_settings import get_receivable_account,get_income_account
 
 
-class PatientAppointment(Document):
+class ClientAppointmentCT(Document):
 	def on_update(self):
 		today = datetime.date.today()
 		appointment_date = getdate(self.appointment_date)
@@ -24,11 +24,11 @@ class PatientAppointment(Document):
 		if not self.is_new():
 			self.db_set('duration', cint(self.duration))
 		else:
-			super(PatientAppointment, self).save(*args, **kwargs)
+			super(ClientAppointmentCT, self).save(*args, **kwargs)
 
 
 def appointment_cancel(appointment_id):
-	appointment = frappe.get_doc("Patient Appointment", appointment_id)
+	appointment = frappe.get_doc("Client Appointment CT", appointment_id)
 
 	# If invoice --> fee_validity update with -1 visit
 	if appointment.sales_invoice:
@@ -102,7 +102,7 @@ def get_availability_data(date, physician):
 
 	# get appointments on that day for physician
 	appointments = frappe.get_all(
-		"Patient Appointment",
+		"Client Appointment CT",
 		filters={"physician": physician, "appointment_date": date},
 		fields=["name", "appointment_time", "duration", "status"])
 
@@ -115,7 +115,7 @@ def get_availability_data(date, physician):
 
 @frappe.whitelist()
 def update_status(appointment_id, status):
-	frappe.db.set_value("Patient Appointment", appointment_id, "status", status)
+	frappe.db.set_value("Client Appointment CT", appointment_id, "status", status)
 	if status == "Cancelled":
 		appointment_cancel(appointment_id)
 
@@ -124,7 +124,7 @@ def update_status(appointment_id, status):
 def set_open_appointments():
 	today = getdate()
 	frappe.db.sql(
-		"update `tabPatient Appointment` set status='Open' where status = 'Scheduled'"
+		"update `tabClient Appointment CT` set status='Open' where status = 'Scheduled'"
 		" and appointment_date = %s", today)
 
 
@@ -132,7 +132,7 @@ def set_open_appointments():
 def set_pending_appointments():
 	today = getdate()
 	frappe.db.sql(
-		"update `tabPatient Appointment` set status='Pending' where status in "
+		"update `tabClient Appointment CT` set status='Pending' where status in "
 		"('Scheduled','Open') and appointment_date < %s", today)
 
 
@@ -150,7 +150,7 @@ def getItemForInvoice(appointment):
 	if len(consultant_data)>0:
 		consult=frappe.get_doc("Consultation",consultant_data[0].name)
 		line_item={}
-		line_item["item_code"]=frappe.db.get_value("Healthcare Settings","Healthcare Settings","consultant_item")
+		line_item["item_code"]=frappe.db.get_value("Clinic Settings","Clinic Settings","consultant_item")
 		line_item["qty"]=1
 		line_item["consultation"]=consultant_data[0].name
 		op_consulting_charge = frappe.db.get_value("Doctor",consult.physician, "op_consulting_charge")
@@ -312,7 +312,7 @@ def create_invoice_items1(appointment_id, physician, company, invoice):
 
 @frappe.whitelist()
 def create_consultation(appointment):
-	appointment = frappe.get_doc("Patient Appointment", appointment)
+	appointment = frappe.get_doc("Client Appointment CT", appointment)
 	consultation = frappe.new_doc("Consultation")
 	consultation.appointment = appointment.name
 	consultation.patient = appointment.client
@@ -332,15 +332,15 @@ def remind_appointment():
 			hours=rem_before.hour, minutes=rem_before.minute, seconds=rem_before.second)
 
 		appointment_list = frappe.db.sql(
-			"select name from `tabPatient Appointment` where start_dt between %s and %s and reminded = 0 ",
+			"select name from `tabClient Appointment CT` where start_dt between %s and %s and reminded = 0 ",
 			(datetime.datetime.now(), rem_dt)
 		)
 
 		for i in range(0, len(appointment_list)):
-			doc = frappe.get_doc("Patient Appointment", appointment_list[i][0])
+			doc = frappe.get_doc("Client Appointment CT", appointment_list[i][0])
 			message = frappe.db.get_value("Healthcare Settings", None, "app_rem_msg")
 			send_message(doc, message)
-			frappe.db.set_value("Patient Appointment", doc.name, "reminded",1)
+			frappe.db.set_value("Client Appointment CT", doc.name, "reminded",1)
 
 '''
 def send_message(doc, message):
@@ -365,10 +365,10 @@ def get_events(start, end, filters=None):
 	:param filters: Filters (JSON).
 	"""
 	from frappe.desk.calendar import get_event_conditions
-	conditions = get_event_conditions("Patient Appointment", filters)
+	conditions = get_event_conditions("Client Appointment CT", filters)
 	data = frappe.db.sql("""select name, patient, physician, status,
 		duration, timestamp(appointment_date, appointment_time) as
-		'appointment_date' from `tabPatient Appointment` where
+		'appointment_date' from `tabClient Appointment CT` where
 		(appointment_date between %(start)s and %(end)s)
 		and docstatus < 2 {conditions}""".format(conditions=conditions),
 		{"start": start, "end": end}, as_dict=True, update={"allDay": 0})

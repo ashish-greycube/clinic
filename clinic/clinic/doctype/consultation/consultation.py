@@ -15,7 +15,7 @@ from frappe.utils import now_datetime
 
 class Consultation(Document):
 	def after_insert(self):
-		frappe.db.set_value("Patient Appointment", self.appointment, "status", "Closed")
+		frappe.db.set_value("Client Appointment CT", self.appointment, "status", "Closed")
 
 	def on_submit(self):
 		#custom:create client treatment document from consultation document
@@ -40,10 +40,10 @@ class Consultation(Document):
 					consulatation=self.name,
 					consulatation_treatment=item.name
 				)).insert()
-			frappe.db.set_value("Patient Appointment", self.appointment, "status", "Under Treatment")
+			frappe.db.set_value("Client Appointment CT", self.appointment, "status", "Under Treatment")
 		else:
 			if not self.is_bill:
-				frappe.db.set_value("Patient Appointment", self.appointment, "status", "To Bill")
+				frappe.db.set_value("Client Appointment CT", self.appointment, "status", "To Bill")
 
 def set_sales_invoice_fields(company, patient):
 	sales_invoice = frappe.new_doc("Sales Invoice")
@@ -99,7 +99,7 @@ def create_invoice(company, patient, physician, consultation_id):
 	frappe.db.sql("""update tabConsultation set invoice=%s where name=%s""", (sales_invoice.name, consultation_id))
 	appointment = frappe.db.get_value("Consultation", consultation_id, "appointment")
 	if appointment:
-		frappe.db.set_value("Patient Appointment", appointment, "sales_invoice", sales_invoice.name)
+		frappe.db.set_value("Client Appointment CT", appointment, "sales_invoice", sales_invoice.name)
 	return sales_invoice.name
 
 def create_invoice_items(physician, invoice, company):

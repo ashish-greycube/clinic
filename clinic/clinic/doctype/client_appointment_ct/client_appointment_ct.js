@@ -1,7 +1,7 @@
 // Copyright (c) 2016, ESS LLP and contributors
 // For license information, please see license.txt
 frappe.provide("erpnext.queries");
-frappe.ui.form.on('Patient Appointment', {
+frappe.ui.form.on('Client Appointment CT', {
 	setup: function(frm) {
 		frm.custom_make_buttons = {
 			'Sales Invoice': 'Invoice',
@@ -66,7 +66,7 @@ frappe.ui.form.on('Patient Appointment', {
 						var doc = frm.doc;
 
 						frappe.call({
-							method:"clinic.clinic.doctype.patient_appointment.patient_appointment.create_invoice",
+							method:"clinic.clinic.doctype.client_appointment_ct.client_appointment_ct.create_invoice",
 							args: {company: doc.company, physician:doc.physician, patient: doc.client,
 							appointment_id: doc.name, appointment_date:doc.appointment_date},
 							freeze:true,
@@ -207,7 +207,7 @@ var get_selected_item=function(frm,tableControl){
 var btn_create_consultation = function(frm){
 	var doc = frm.doc;
 	frappe.call({
-		method:"clinic.clinic.doctype.patient_appointment.patient_appointment.create_consultation",
+		method:"clinic.clinic.doctype.client_appointment_ct.client_appointment_ct.create_consultation",
 		args: {appointment: doc.name},
 		callback: function(data){
 			if(!data.exc){
@@ -236,7 +236,7 @@ var btn_update_status = function(frm, status){
 		function() {
 			frappe.call({
 				method:
-				"erpnext.healthcare.doctype.patient_appointment.patient_appointment.update_status",
+				"erpnext.healthcare.doctype.client_appointment_ct.client_appointment_ct.update_status",
 				args: {appointment_id: doc.name, status:status},
 				callback: function(data){
 					if(!data.exc){
@@ -252,7 +252,7 @@ var btn_invoice_consultation = function(frm){
 	var doc = frm.doc;
 	frappe.call({
 		method:
-		"clinic.clinic.doctype.patient_appointment.patient_appointment.create_invoice",
+		"clinic.clinic.doctype.client_appointment_ct.client_appointment_ct.create_invoice",
 		args: {company: doc.company, physician:doc.physician, patient: doc.client,
 			appointment_id: doc.name, appointment_date:doc.appointment_date },
 		callback: function(data){
@@ -268,7 +268,7 @@ var btn_invoice_consultation = function(frm){
 
 
 
-frappe.ui.form.on("Patient Appointment", "patient", function(frm) {
+frappe.ui.form.on("Client Appointment CT", "patient", function(frm) {
 	if(frm.doc.patient){
 		frappe.call({
 			"method": "frappe.client.get",
@@ -288,7 +288,7 @@ frappe.ui.form.on("Patient Appointment", "patient", function(frm) {
 });
 
 //custom:this is use to reload doc after update status
-frappe.ui.form.on("Patient Appointment", "status", function(frm) {
+frappe.ui.form.on("Client Appointment CT", "status", function(frm) {
 	frm.refresh_field('status');
 	setTimeout(function(){
 	cur_frm.reload_doc();

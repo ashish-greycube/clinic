@@ -1,7 +1,7 @@
 /*
 (c) ESS 2015-16
 */
-frappe.listview_settings['Patient Appointment'] = {
+frappe.listview_settings['Client Appointment CT'] = {
 	filters: [["status", "=", "Open"]],
 	get_indicator: function(doc) {
 
