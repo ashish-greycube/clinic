@@ -1,7 +1,7 @@
 {
  "allow_copy": 1,
  "allow_import": 1,
- "autoname": "OP-.######",
+ "autoname": "COP-.######",
  "creation": "2017-05-04 11:52:40.941507",
  "doctype": "DocType",
  "document_type": "Document",
@@ -13,6 +13,7 @@
   "check_availability",
   "column_break_1",
   "patient_name",
+  "english_name",
   "gender",
   "doctor_name",
   "patient_age",
@@ -331,9 +332,15 @@
    "label": "Reminded",
    "print_hide": 1,
    "report_hide": 1
+  },
+  {
+   "fetch_from": "client.english_name",
+   "fieldname": "english_name",
+   "fieldtype": "Data",
+   "label": "English name"
   }
  ],
- "modified": "2020-07-19 15:06:56.290569",
+ "modified": "2020-07-21 20:08:46.464323",
  "modified_by": "Administrator",
  "module": "Clinic",
  "name": "Client Appointment CT",
