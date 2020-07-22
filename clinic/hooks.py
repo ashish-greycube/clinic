@@ -11,8 +11,12 @@ app_color = "pink"
 app_email = "sales@greycube.in"
 app_license = "MIT"
 
-fixtures=["Custom Script","Translation"]
-
+fixtures = [
+	{"doctype":"Custom Field", "filters": [["_user_tags", "like", ("%clinic%")]]},
+	{"doctype":"Property Setter", "filters": [["_user_tags", "like", ("%clinic%")]]},
+	"Custom Script",
+	"Translation"
+]
 
 # Includes in <head>
 # ------------------

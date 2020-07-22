@@ -66,16 +66,16 @@ def generateResponse(_type,status=None,message=None,data=None,error=None):
 @frappe.whitelist()
 def checkAvailability(self,method):
 	try:
-		checkAppointment=frappe.get_all("Patient Appointment",filters=[("Patient Appointment","status","in",["Billed","To Bill","Under Treatment","Scheduled"]),("Patient Appointment","appointment_date","=",self.appointment_date),("Patient Appointment","physician","=",self.physician),("Patient Appointment","appointment_time","=",self.appointment_time)],fields=["name"])
-		checkApp=frappe.db.sql("""select name from `tabPatient Appointment` where status="Schedule" and appointment_date=%s and physician=%s and appointment_time=%s""",(self.appointment_date,self.physician,self.appointment_time))	
+		checkAppointment=frappe.get_all("Client Appointment CT",filters=[("Client Appointment CT","status","in",["Billed","To Bill","Under Treatment","Scheduled"]),("Client Appointment CT","appointment_date","=",self.appointment_date),("Client Appointment CT","physician","=",self.physician),("Client Appointment CT","appointment_time","=",self.appointment_time)],fields=["name"])
+		checkApp=frappe.db.sql("""select name from `tabClient Appointment CT` where status="Schedule" and appointment_date=%s and physician=%s and appointment_time=%s""",(self.appointment_date,self.physician,self.appointment_time))	
 		
 	
 		#frappe.msgprint(json.dumps(checkAppointment))
 		if len(checkAppointment)>1:
-			frappe.db.set_value("Patient Appointment", self.name, "status", "Waiting")
+			frappe.db.set_value("Client Appointment CT", self.name, "status", "Waiting")
 			return self.name
 		else:
-			frappe.db.set_value("Patient Appointment", self.name, "status", "Scheduled")
+			frappe.db.set_value("Client Appointment CT", self.name, "status", "Scheduled")
 			return self.name
 
 	except Exception as e:
@@ -131,9 +131,9 @@ def changeStatus(self,method):
 			consultant_data=frappe.get_all("Consultation",filters=[("Consultation","appointment","=",self.appointment),("Consultation","is_bill","!=",1)],fields=["name"])
 			treatment_data=frappe.get_all("Client Treatment",filters=[("Client Treatment","appointment","=",self.appointment),("Client Treatment","status","in",["Pending","Completed"]),("Client Treatment","is_bill","!=",1)],fields=["name"])
 			if len(consultant_data)==0 and len(treatment_data)==0:
-				frappe.db.set_value("Patient Appointment",self.appointment, "status", "Billed")
+				frappe.db.set_value("Client Appointment CT",self.appointment, "status", "Billed")
 			else:
-				frappe.db.set_value("Patient Appointment",self.appointment, "status", "Partial Billed")
+				frappe.db.set_value("Client Appointment CT",self.appointment, "status", "Partial Billed")
 
 	# except Exception as e:
 	# 	return generateResponse("F",error=e)
@@ -144,7 +144,7 @@ def changeStatus(self,method):
 def updateDocument(self,method):
 	try:
 		if self.appointment:
-			frappe.db.set_value("Patient Appointment",self.appointment,"status","Closed")
+			frappe.db.set_value("Client Appointment CT",self.appointment,"status","Closed")
 			treatment_data=frappe.get_all("Client Treatment",filters={'consulatation':self.name},fields=["name"])
 			if len(treatment_data)>0:
 				for treatment in treatment_data:

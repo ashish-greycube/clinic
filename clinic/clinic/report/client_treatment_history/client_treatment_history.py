@@ -16,7 +16,7 @@ def execute(filters=None):
 
 def get_columns():
 	return [
-		_("Client") + ":Link/Customer:100", _("Appointment")+ ":Link/Patient Appointment:120",
+		_("Client") + ":Link/Customer:100", _("Appointment")+ ":Link/Client Appointment CT:120",
 		_("Date") + ":Date:90", _("Doctor") + ":Link/Doctor:100",_("Doctor Name") + ":Link/Doctor:100",
 		_("Clinic") + ":Link/Department:120", _("Treatment") + "::170", _("Medical Assistant") + ":Link/Doctor:120",
 		_("Medical Assistant Name") + ":Link/Doctor:150", _("Status") + "::70", _("Cell No") + "::110", _("Email") + "::110"
@@ -25,7 +25,7 @@ def get_columns():
 def get_data(filters):
 	conditions = get_conditions(filters)
 	data=[]
-	appointment_data=frappe.db.sql("""select client,name,appointment_date,physician,doctor_name,clinic_name from `tabPatient Appointment` where docstatus=0 %s""" % conditions)
+	appointment_data=frappe.db.sql("""select client,name,appointment_date,physician,doctor_name,clinic from `tabClient Appointment CT` where docstatus=0 %s""" % conditions)
 	if appointment_data:
 		for appointment in appointment_data:
 			row=[]
