@@ -1,7 +1,7 @@
 // Copyright (c) 2017, Frappe Technologies Pvt. Ltd. and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Physician Schedule', {
+frappe.ui.form.on('Physician Schedule CT', {
 	refresh: function(frm) {
 		frm.add_custom_button(__('Add Time Slots'), () => {
 			var d = new frappe.ui.Dialog({

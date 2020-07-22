@@ -12,8 +12,6 @@ app_email = "sales@greycube.in"
 app_license = "MIT"
 
 fixtures = [
-	{"doctype":"Custom Field", "filters": [["_user_tags", "like", ("%clinic%")]]},
-	{"doctype":"Property Setter", "filters": [["_user_tags", "like", ("%clinic%")]]},
 	"Custom Script",
 	"Translation"
 ]

@@ -65,7 +65,7 @@ def get_availability_data(date, physician):
 	# get physicians schedule
 	physician_schedule_name = frappe.db.get_value("Doctor", physician, "physician_schedule")
 	if physician_schedule_name:
-		physician_schedule = frappe.get_doc("Physician Schedule", physician_schedule_name)
+		physician_schedule = frappe.get_doc("Physician Schedule CT", physician_schedule_name)
 		time_per_appointment = frappe.db.get_value("Doctor", physician, "time_per_appointment")
 		#frappe.msgprint(json.dumps(time_per_appointment))
 	else:
