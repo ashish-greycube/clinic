@@ -102,7 +102,7 @@ var btn_invoice_consultation = function(frm){
 	var doc = frm.doc;
 	frappe.call({
 		method:
-		"erpnext.healthcare.doctype.consultation.consultation.create_invoice",
+		"clinic.clinic.doctype.consultation.consultation.create_invoice",
 		args: {company: doc.company, patient: doc.patient, physician: doc.physician, consultation_id: doc.name },
 		callback: function(data){
 			if(!data.exc){
@@ -196,7 +196,7 @@ frappe.ui.form.on("Consultation", "appointment", function(frm){
 		frappe.call({
 			"method": "frappe.client.get",
 			args: {
-				doctype: "Patient Appointment",
+				doctype: "Client Appointment CT",
 				name: frm.doc.appointment
 			},
 			callback: function (data) {
@@ -238,15 +238,14 @@ frappe.ui.form.on("Consultation", "onload", function(frm,cdt,cdn) {
 			frappe.call({
 				method: 'frappe.client.get_value',
 				args: {
-					doctype: 'Patient Appointment',
-					filters: { name:frm.doc.appointment
-					},
+					doctype: 'Client Appointment CT',
+					filters: { name:frm.doc.appointment},
 				   fieldname:['client','patient_name','doctor_name']
 				},
 				callback: function(res) {
-					frappe.model.set_value(cdt, cdn, "patient", res.message.client);
-					frappe.model.set_value(cdt, cdn, "patient_name", res.message.patient_name);
-					frappe.model.set_value(cdt, cdn, "doctor_name", res.message.doctor_name);
+					// frappe.model.set_value(cdt, cdn, "patient", res.message.client);
+					// frappe.model.set_value(cdt, cdn, "patient_name", res.message.patient_name);
+					// frappe.model.set_value(cdt, cdn, "doctor_name", res.message.doctor_name);
 					
 				}
 	
