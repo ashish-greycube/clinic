@@ -22,7 +22,7 @@ class ClientTreatment(Document):
 			
 				if len(treatment_data)>0:
 					if len(treatment_data)==len(treatment_data_complete):
-						frappe.db.set_value("Patient Appointment",self.appointment,"status","To Bill")
+						frappe.db.set_value("Client Appointment CT",self.appointment,"status","To Bill")
 
 	def update_status(self, status):
 		self.set_status(update=True, status=status)

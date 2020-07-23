@@ -10,7 +10,7 @@ from frappe.utils import getdate, cint
 from frappe import _
 import datetime
 from frappe.core.doctype.sms_settings.sms_settings import send_sms
-from erpnext.healthcare.doctype.healthcare_settings.healthcare_settings import get_receivable_account,get_income_account
+from clinic.clinic.doctype.clinic_settings.clinic_settings import get_receivable_account,get_income_account
 
 
 class ClientAppointmentCT(Document):

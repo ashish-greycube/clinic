@@ -8,7 +8,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import getdate, cstr
 import json
-from erpnext.healthcare.doctype.healthcare_settings.healthcare_settings import get_receivable_account, get_income_account
+from clinic.clinic.doctype.clinic_settings.clinic_settings import get_receivable_account,get_income_account
 import time
 from datetime import datetime
 from frappe.utils import now_datetime

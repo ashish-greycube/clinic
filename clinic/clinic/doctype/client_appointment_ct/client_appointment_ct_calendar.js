@@ -8,7 +8,7 @@ frappe.views.calendar["Client Appointment CT"] = {
 		"allDay": "allDay"
 	},
 	gantt: true,
-	get_events_method: "erpnext.healthcare.doctype.client_appointment_ct.client_appointment_ct.get_events",
+	get_events_method: "clinic.clinic.doctype.client_appointment_ct.client_appointment_ct.get_events",
 	filters: [
 		{
 			'fieldtype': 'Link',

@@ -236,7 +236,7 @@ var btn_update_status = function(frm, status){
 		function() {
 			frappe.call({
 				method:
-				"erpnext.healthcare.doctype.client_appointment_ct.client_appointment_ct.update_status",
+				"clinic.clinic.doctype.client_appointment_ct.client_appointment_ct.update_status",
 				args: {appointment_id: doc.name, status:status},
 				callback: function(data){
 					if(!data.exc){

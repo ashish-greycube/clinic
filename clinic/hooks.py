@@ -92,7 +92,7 @@ before_install = "clinic.api.deleteTranslation"
 #	}
 # }
 doc_events = {
-	"Patient Appointment":{
+	"Client Appointment CT":{
 		"after_insert":"clinic.api.checkAvailability"
 	},
 	"Consultation":{

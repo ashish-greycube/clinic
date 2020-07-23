@@ -15,19 +15,6 @@ frappe.ui.form.on('Consultation', {
 			{fieldname: 'test_comment', columns: 4}
 		];
 	},
-	onload: function(frm){
-		/*if(frm.doc.patient){
-			frappe.call({
-				"method": "erpnext.healthcare.doctype.patient.patient.get_patient_detail",
-				args: {
-					patient: frm.doc.patient
-				},
-				callback: function (data) {
-					show_details(data.message);
-				}
-			});
-		}*/
-	},
 	refresh: function(frm) {
 		refresh_field('drug_prescription');
 		refresh_field('test_prescription');
@@ -278,27 +265,6 @@ frappe.ui.form.on("Consultation", "diagnosis_select", function(frm) {
 	}
 });
 
-/*frappe.ui.form.on("Consultation", "patient", function(frm) {
-	if(frm.doc.patient){
-		frappe.call({
-			"method": "erpnext.healthcare.doctype.patient.patient.get_patient_detail",
-			args: {
-				patient: frm.doc.patient
-			},
-			callback: function (data) {
-				var age = "";
-				if(data.message.dob){
-					age = calculate_age(data.message.dob);
-				}
-				frappe.model.set_value(frm.doctype,frm.docname, "patient_age", age);
-				frappe.model.set_value(frm.doctype,frm.docname, "patient_sex", data.message.sex);
-				if(frm.doc.__islocal) show_details(data.message);
-			}
-		});
-	}
-});
-
-*/
 frappe.ui.form.on("Drug Prescription", {
 	drug_code:  function(frm, cdt, cdn) {
 		var child = locals[cdt][cdn];

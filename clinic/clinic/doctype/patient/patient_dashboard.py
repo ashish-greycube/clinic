@@ -8,7 +8,7 @@ def get_data():
 		'transactions': [
 			{
 				'label': _('Appointments and Consultations'),
-				'items': ['Patient Appointment', 'Consultation']
+				'items': ['Client Appointment CT', 'Consultation']
 			},
 			{
 				'label': _('Lab Tests and Vital Signs'),
