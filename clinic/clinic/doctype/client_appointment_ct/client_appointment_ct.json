@@ -1,12 +1,13 @@
 {
  "allow_copy": 1,
  "allow_import": 1,
- "autoname": "COP-.######",
+ "autoname": "naming_series:",
  "creation": "2017-05-04 11:52:40.941507",
  "doctype": "DocType",
  "document_type": "Document",
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "client",
   "physician",
   "appointment_date",
@@ -338,9 +339,15 @@
    "fieldname": "english_name",
    "fieldtype": "Data",
    "label": "English name"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "COP-.######"
   }
  ],
- "modified": "2020-07-21 20:08:46.464323",
+ "modified": "2020-07-23 08:32:20.759228",
  "modified_by": "Administrator",
  "module": "Clinic",
  "name": "Client Appointment CT",
