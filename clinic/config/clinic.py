@@ -138,6 +138,30 @@ def get_data():
 					"is_query_report": True,
 					"name": "Appointment Analytics",
 					"doctype": "Client Appointment CT"
+				},
+				{
+					"type": "report",
+					"is_query_report": True,
+					"name": "Lead Source Billing Analysis",
+					"doctype": "Sales Invoice"
+				},
+				{
+					"type": "report",
+					"is_query_report": True,
+					"name": "Appointment Status Analysis",
+					"doctype": "Client Appointment CT"
+				},
+				{
+					"type": "report",
+					"is_query_report": True,
+					"name": "Userwise Customer Count",
+					"doctype": "Customer"
+				},
+				{
+					"type": "report",
+					"is_query_report": True,
+					"name": "Login User Report",
+					"doctype": "Activity Log"
 				}
 
 			]
